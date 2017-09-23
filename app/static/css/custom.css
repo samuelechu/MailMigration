@@ -1,0 +1,14 @@
+#gSignInButton{
+	padding:10px;
+}
+
+.container-fluid{
+	text-align:center;
+	position:relative;
+}
+
+.jumbotronAccount{
+    height: 45vh;
+    width: 45%;
+	display:inline-block;
+}

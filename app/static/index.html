@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Welcome
+
+    </title>
+    <meta name="google-signin-client_id"
+    content="65587295914-kbl4e2chuddg9ml7d72f6opqhddl62fv.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style media="screen">
+        #logout{display:none}
+    </style>
+
+</head>
+<body>
+
+    <script src="scripts/misc.js"></script>
+    <script src="scripts/signIn.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Mail Migration</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                </ul>
+
+                <ul class = "nav navbar-nav navbar-right">
+
+                    <div id = "gSignInButton" class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <!-- <li><p id = "googleUserName" class="navbar-text"></p></li> -->
+                    <li><a id = "logout" href="#" onclick="signOut();">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="selectSection" class="container-fluid collapse">
+
+        <div id="selectSource" class = "jumbotronAccount jumbotron container col-sm-6 center">
+            <button id="sourceAccount" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Select an account to transfer emails from" onclick="location.href='askPermissions?type=source&permissions=gmail.modify';">Select Source Email</button>
+            
+            <p id = "sourceName">{{.Source}}</p>
+        </div>
+
+        <div id="selectDest" class = "jumbotronAccount jumbotron container col-sm-5 col-sm-offset-1 center">
+            <button id="destAccount" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Select an account to transfer emails to" onclick="location.href='askPermissions?type=destination&permissions=gmail.insert&permissions=gmail.labels';">Select Destination Email</button>
+
+            <p id = "destName">{{.Destination}}</p>
+        </div>
+    </div>
+
+    <div id="transferButtonSection" class="container-fluid collapse">
+        <button id="transferButton" class="btn btn-primary btn-lg" onclick="location.href='selectLabels';">
+            <span class="glyphicon glyphicon-chevron-right"></span> Continue
+        </button>
+    </div>
+
+
+    <br><br>
+
+    <div id="jobSection" class="container-fluid collapse">
+
+        <div id="jobInfo" class = "jumbotron container col-sm-12 center">
+
+            <div class="progress progress-striped active">
+                <div id = "jobProgressBar" class="progress-bar progress-bar-success" style="width: 0%">
+                    0%
+                </div>
+            </div>
+
+            <div>
+                <p id = "accountInfo">Transferring from {{.Source}}'s account to {{.Destination}}'s account</p>
+
+                <p id = "transferProgress">Currently setting up transfer, this may take a couple minutes..</p>
+
+                <button id="cancelJob" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="bottom" title="Cancel current email transfer" onclick="location.href='stopJob?uid=' + {{.CurID}} ;">Cancel</button>
+
+                <button id="markFails" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="bottom" title="Mark emails that failed to transfer with the label &quot;failedTransfer&quot;" onclick="localStorage.setItem('visited', 'true'); location.href='markFailed?uid=' + {{.CurID}};">Mark Failed Transfers</button>
+            </div>
+            
+        </div>
+
+    
+    </div>
+
+    <div id="finishSection" class="container-fluid collapse">
+
+        <button id="finishTransfer" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="bottom" title="Start another email transfer" onclick="localStorage.setItem('visited', 'false'); location.href='stopJob?uid=' + {{.CurID}} ;"> <span class="glyphicon glyphicon-chevron-right"></span> Finish Transfer</button>
+
+    
+    </div>
+
+</body>
+</html>

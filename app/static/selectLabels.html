@@ -1,0 +1,97 @@
+<!-- this page allows users to select the specific emails they want to transfer -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Welcome
+
+    </title>
+    <meta name="google-signin-client_id"
+    content="65587295914-kbl4e2chuddg9ml7d72f6opqhddl62fv.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://bootswatch.com/united/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style media="screen">
+        #logout{display:none}
+    </style>
+
+</head>
+
+
+<body>
+
+  <script>
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();   
+    });
+  </script>
+
+  <nav class="navbar navbar-default">
+          <div class="container">
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">Mail Migration</a>
+              </div>
+              <div id="navbar" class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav">
+                      <li class="active"><a href="/">Home</a></li>
+                  </ul>
+
+                  <ul class = "nav navbar-nav navbar-right">
+
+                      <div id = "gSignInButton" class="g-signin2" data-onsuccess="onSignIn"></div>
+                      <!-- <li><p id = "googleUserName" class="navbar-text"></p></li> -->
+                      <li><a id = "logout" href="#" onclick="signOut();">Sign out</a></li>
+
+
+                  </ul>
+              </div>
+          </div>
+      </nav>
+
+
+      <script>
+        function toggleCheckboxes(source) {
+          checkboxes = document.getElementsByName("labelCheckbox");
+          for(var i=0, n=checkboxes.length;i<n;i++) {
+            checkboxes[i].checked = source.checked;
+          }
+        }
+
+      </script>
+
+      <div class="container">
+        <h2>Select Labels</h2>
+        <p>Emails that have any of the selected labels will be transferred.</p><br>
+
+        <form id="labelForm" action="transferStart" method="post">
+
+          <div class="checkbox">
+            <label><input type="checkbox" onClick = "toggleCheckboxes(this)">Select All/None</label>
+          </div><hr />
+
+          {{ range $index, $element := .LabelMap }}
+          <div class="checkbox">
+            <label><input type="checkbox" name="labelCheckbox" value={{ $index }} > {{ $index }} </label>
+          </div>
+        
+           {{ end }}
+        
+        </form>
+        <hr />
+
+        <button id="transferButton" class="btn btn-primary btn-lg" data-toggle="tooltip" data-placement="right" title="Transfer emails between accounts!" form="labelForm">Transfer emails!</button>
+
+      </div>
+      
+</body>
+</html>

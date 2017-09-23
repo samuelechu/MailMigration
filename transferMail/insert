@@ -1,0 +1,43 @@
+Body: strings.NewReader(
+			"--foo\r\nFoo: one\r\n\r\nA section\r\n" +
+				"--foo\r\nFoo: two\r\n\r\nAnd another\r\n" +
+				"--foo--\r\n"),
+
+'--foobar\nContent-Type: application/json; charset=UTF-8\n{' +
+'\n\"raw\":\"' + raw + '\"\n\"labelIds\": ["INBOX", "UNREAD"]\n}' +
+'--foo_bar\nContent-Type: message/rfc822\n\nstringd\n--foo_bar--'
+
+
+//template for inserting a message into an inbox
+
+https://www.googleapis.com/upload/gmail/v1/users/me/messages
+
+
+Header name	Header value
+Content-Type	multipart/related; boundary=foo_bar	Remove
+Content-Length	15448 (Body size)
+
+
+Body:...............................
+
+
+--foo_bar
+Content-Type: application/json; charset=UTF-8
+
+
+{
+
+ "raw":"SSTJSeDlHekg0TzN4a1lJMDNFWFBScUZJaVgyWERtOEMvWDBGaw0KICAgICAgICAgOTFEbUJYZUN0eU1pbmV6Y1UxaFdOUXBxdmdaTHZGTXJUYmtJeFlCZXBOMERDdXZaUWRjR3I4NDdQMXdXZnluYWIzaWMNCiAgICAgICAgIHlPcWc9PQ0KQVJDLU1lc3NhZ2UtU2lnbmF0dXJlOiBpPTE7IGE9cnNhLXNoYTI1NjsgYz1yZWxheGVkL3JlbGF4ZWQ7IGQ9Z29vZ2xlLmNvbTsgcz1hcmMtMjAxNjA4MTY7DQogICAgICAgIGg9dG86ZnJvbTpzdWJqZWN0Om1lc3NhZ2UtaWQ6ZmVlZGJhY2staWQ6ZGF0ZTptaW1lLXZlcnNpb24NCiAgICAgICAgIDpka2ltLXNpZ25hdHVyZTphcmMtYXV0aGVudGljYXRpb24tcmVzdWx0czsNCiAgICAgICAgYmg9eHd6eTg1dmU3VjBKUVdJTDdHQ0tLdUVKWXZpTDhPUy9pZXNJa1M5VnlmYz07DQogICAgICAgIGI9Q3g3TTkxZ1Y2czNzajN3Y2Q2blFjOENyRzZtNktTN1IzWGV6VktjRlVOdzJIaXAzWUI4WEMyT3A1MmtxNElFQzJkDQogICAgICAgICBrT0xFbDdLNmZHbXYvdGttZmVGYTZ1d2Q0Tlgvcks2cHpBYml5Yzkrc1V0S0RaVkxJcUZhb1VOeGRObTJSSjFLaVlkTQ0KICAgICAgICAgcmJKTEFFU0pEcHliSEt0aXZJQ1ZjNnNGc2R4VjQwYStORDhWcGJocEtLZ3liczF3WWowTnRqQUptNkdXLzkvdVZySmENCiAgICAgICAgIG1KTzF5Ynl4T3BEU0NRY1lNTlkwUU13Y3doa0tQakdrakdzUEhRNlY4bzZJZEs3U3ZFVWUwQUp2Ti94VHRLcXNTTDZVDQogICAgICAgICBZQy9vYm5jTEpBZWdWZzcvcWtTQmNwaTRMdGVQo=",
+
+"labelIds": [
+    "INBOX",
+    "UNREAD"
+ ]
+}
+
+--foo_bar
+Content-Type: message/rfc822
+
+stringd
+
+--foo_bar--

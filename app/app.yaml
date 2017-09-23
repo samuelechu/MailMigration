@@ -1,0 +1,11 @@
+runtime: go
+api_version: go1
+manual_scaling:
+  instances: 5
+
+env_variables:
+  CLIENT_ID: 65587295914-kbl4e2chuddg9ml7d72f6opqhddl62fv.apps.googleusercontent.com
+
+handlers:
+- url: /.*
+  script: _go_app
