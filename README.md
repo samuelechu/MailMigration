@@ -8,3 +8,5 @@ A web app that transfers emails between Gmail accounts. Capable of handling conc
 
 Screenshots:
 https://photos.app.goo.gl/LhZVAbeBgX8OgZLi2
+
+Due to issues with workflow, my commit history is separated into a different repo : https://github.com/samuelechu/gcloudApp
